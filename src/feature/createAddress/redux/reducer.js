@@ -16,7 +16,7 @@ const createAddressReducer = createSlice({
       state.uf = payload.uf;
     },
     setLoading(state, { payload }) {
-      state.loading = payload.cep;
+      state.loading = payload;
     },
     setError(state, { payload, type }) {
       state.error = payload;
