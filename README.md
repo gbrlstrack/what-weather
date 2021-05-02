@@ -25,7 +25,7 @@ Aplicacão react-native com finalidade de testar meus conhecimentos;
   $yarn install
   $yarn android
   
-- Para iniciar o aplicativo executeÇ
+- Para iniciar o aplicativo execute:
   $yarn start
   
 ### Obs
