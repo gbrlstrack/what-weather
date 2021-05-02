@@ -33,16 +33,18 @@ const manageAddressReducer = createSlice({
       state.isRefreshing = payload;
     },
     setRefreshedAddress(state, { payload }) {
+      console.log({ payload });
       let toReWriteIndex;
-      payload.length > 1
-        ? payload.forEach((cidade) => {
-            toReWriteIndex = state.addressesList.findIndex(
-              (item) => item.ibge == cidade.ibge
-            );
-            state.addressesList[toReWriteIndex] = cidade;
-          })
-        : (state.addressesList[0] = payload);
-
+      if (payload.length > 0) {
+        payload.length > 1
+          ? payload.forEach((cidade) => {
+              toReWriteIndex = state.addressesList.findIndex(
+                (item) => item.ibge == cidade.ibge
+              );
+              state.addressesList[toReWriteIndex] = cidade;
+            })
+          : (state.addressesList[0] = payload);
+      }
       state.isRefreshing = false;
     },
     clearUltimasConsultas(state) {
