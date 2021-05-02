@@ -45,7 +45,7 @@ const HomeScreen = () => {
     addressesList.length == 0
       ? dispatch(consultaCep('01153000'))
       : refreshingAddress();
-  }, []);
+  }, [addressesList]);
 
   return (
     <>
