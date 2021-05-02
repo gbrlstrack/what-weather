@@ -17,7 +17,6 @@ const manageAddressReducer = createSlice({
       const deleteIndex = state.addressesList.findIndex(
         (element) => element.ibge == payload
       );
-      console.log(deleteIndex);
 
       let cloneArray = _.cloneDeep(state.addressesList);
 
@@ -25,7 +24,6 @@ const manageAddressReducer = createSlice({
         ? _.pullAt(cloneArray, [deleteIndex])
         : (cloneArray = []);
 
-      console.log(cloneArray);
       state.addressesList = cloneArray;
     },
     refreshAddress(state, { payload }) {
@@ -38,14 +36,13 @@ const manageAddressReducer = createSlice({
       let toReWriteIndex;
       payload.length > 1
         ? payload.forEach((cidade) => {
-            console.log(cidade);
             toReWriteIndex = state.addressesList.findIndex(
               (item) => item.ibge == cidade.ibge
             );
             state.addressesList[toReWriteIndex] = cidade;
           })
         : (state.addressesList[0] = payload);
-      // state.addressesList[0] = payload;
+
       state.isRefreshing = false;
     },
     clearUltimasConsultas(state) {

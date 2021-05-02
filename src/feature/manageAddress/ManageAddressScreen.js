@@ -22,7 +22,7 @@ const ManageAddressScreen = () => {
   const { error } = useSelector(
     (state) => state.createAddressReducerPersist.state
   );
-  console.log(error);
+
   const renderItem = ({ item }) => {
     return (
       <List.Item
@@ -38,7 +38,7 @@ const ManageAddressScreen = () => {
       />
     );
   };
-  console.log('addressesList', addressesList);
+
   return (
     <>
       <Appbar>
@@ -61,7 +61,7 @@ const ManageAddressScreen = () => {
         onRefresh={() => dispatch(refreshAddressesList())}
         keyExtractor={(item) => item?.city_name?.toString()}
         renderItem={(item) => renderItem(item)}
-        data={addressesList[0]?.length >= 1 ? addressesList : []}
+        data={addressesList ? addressesList : []}
       />
       <Snackbar
         duration={3000}

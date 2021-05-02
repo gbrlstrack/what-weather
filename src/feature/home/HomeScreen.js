@@ -46,7 +46,7 @@ const HomeScreen = () => {
       ? dispatch(consultaCep('01153000'))
       : refreshingAddress();
   }, []);
-  console.log('ultimaConsulta', ultimaConsulta);
+
   return (
     <>
       <Appbar
@@ -87,7 +87,7 @@ const HomeScreen = () => {
             }}>
             <ActivityIndicator size="large" />
           </View>
-        ) : ultimaConsulta[0] == undefined ? (
+        ) : ultimaConsulta?.temp == undefined ? (
           <View
             style={{
               alignItems: 'center',

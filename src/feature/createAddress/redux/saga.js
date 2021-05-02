@@ -26,9 +26,8 @@ function* watcherCreateAddresses() {
 function* workerConsultaCep({ payload }) {
   try {
     yield put(setLoading(true));
-
-    let isConnected;
-    NetInfo.fetch().then((state) => (isConnected = state.isConnected));
+    let state = yield call(NetInfo.fetch);
+    let isConnected = state.isConnected;
     if (!isConnected) {
       yield put(setError('SEM_INTERNET'));
       yield put(setIsRefreshing(false));
@@ -56,7 +55,6 @@ function* workerConsultaCep({ payload }) {
               }
             })
           : (valorDuplicado = false);
-        console.log({ valorDuplicado });
         if (!valorDuplicado) {
           yield put(setAddress(result.localidade, result.uf));
 
@@ -72,7 +70,7 @@ function* workerConsultaCep({ payload }) {
             yield put(createAdressSuccess());
             yield put(setLoading(false));
           } else {
-            console.log(resultTempo);
+            yield put(setError('DEFAULT'));
           }
         } else {
           yield put(setError('CIDADE_JA_EXISTE'));
@@ -81,8 +79,9 @@ function* workerConsultaCep({ payload }) {
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log('workerConsultaCep', error);
     yield put(setLoading(false));
+    yield put(setError('DEFAULT'));
   }
 }
 

@@ -1,27 +1,22 @@
 import axios from 'axios';
-const apiKey = '6d252d20';
+const apiKey = '37ff7630';
 
 export async function CONSULTA_CEP({ cep }) {
   return await axios
     .get(`https://viacep.com.br/ws/${cep}/json/`)
     .then((result) => {
       return result.data;
-    })
-    .catch((error) => {
-      console.log('error na api', error);
     });
 }
 
 export async function CONSULTA_TEMPO({ cidade, uf }) {
-  console.log(cidade, uf);
   return await axios
     .get(
       `https://api.hgbrasil.com/weather?key=${apiKey}&city_name=${cidade},${uf}`
     )
     .then((result) => {
       return result.data;
-    })
-    .catch((error) => console.log(error));
+    });
 }
 
 export async function PRIMEIRA_CONSULTA() {
@@ -31,7 +26,6 @@ export async function PRIMEIRA_CONSULTA() {
 }
 
 export async function CONSULTA_CEP_BY_NOME({ nome, uf }) {
-  console.log(nome, uf);
   return await axios
     .get(`https://viacep.com.br/ws/${uf}/${nome}/json/`)
     .then((result) => {

@@ -90,6 +90,8 @@ const CreateAddressScreen = () => {
           ? 'Cidade ja cadastrada!'
           : errorType == 'SEM_INTERNET'
           ? 'Erro de conexão'
+          : errorType == 'DEFAULT'
+          ? 'Algo não saiu bem, tente novamente em alguns minutos'
           : 'Erro'}
       </Snackbar>
     </>

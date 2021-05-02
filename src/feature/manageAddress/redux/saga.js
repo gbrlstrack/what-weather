@@ -18,24 +18,16 @@ function* workerRefreshAddress({ payload }) {
   try {
     yield put(setIsRefreshing(true));
 
-    let isConnected;
-    NetInfo.fetch().then((state) => (isConnected = state.isConnected));
-
+    let state = yield call(NetInfo.fetch);
+    let isConnected = state.isConnected;
     if (!isConnected) {
       yield put(setError('SEM_INTERNET'));
       yield put(setIsRefreshing(false));
     } else {
-      const cidadesCadastradas = yield select(
-        (state) => state.manageAddressReducerPersist.state.addressesList
-      );
-
       let ibge;
       let address;
-      let cidadeEncontrada = false;
-
       const result = yield call(CONSULTA_CEP, { cep: payload.cep });
       if (result.erro === true) {
-        console.log('Erro do cep');
         yield put(setError('CEP_INVALIDO'));
         yield put(setIsRefreshing(false));
       } else {
@@ -47,24 +39,23 @@ function* workerRefreshAddress({ payload }) {
         yield put(setIsRefreshing(false));
         if (resultTempo) {
           address = { ...resultTempo.results, ibge, cep: payload.cep };
-          console.log('sucesso');
           yield put(setRefreshedAddress(address));
           yield put(setIsRefreshing(false));
         }
       }
     }
   } catch (error) {
+    console.log('workerRefreshAddress', error);
     yield put(setIsRefreshing(false));
     yield put(setError('DEFAULT'));
-    console.log('workerRefreshAddress', error);
   }
 }
 
 function* workerRefreshAddressesList() {
   try {
     yield put(setIsRefreshing(true));
-    let isConnected;
-    NetInfo.fetch().then((state) => (isConnected = state.isConnected));
+    let state = yield call(NetInfo.fetch);
+    let isConnected = state.isConnected;
     if (!isConnected) {
       yield put(setError('SEM_INTERNET'));
       yield put(setIsRefreshing(false));
@@ -76,9 +67,9 @@ function* workerRefreshAddressesList() {
       let cep;
       let ibge;
       let listaAux = [];
-      // console.log(cidadesCadastradas.length);
+      let result;
+
       for (let i = 0; i < cidadesCadastradas.length; i++) {
-        //   console.log('cidade' + i, cidadesCadastradas[i]);
         cityUF = cidadesCadastradas[i].city.split(',');
         cep = cidadesCadastradas[i].cep;
         ibge = cidadesCadastradas[i].ibge;
@@ -93,9 +84,9 @@ function* workerRefreshAddressesList() {
       yield put(setRefreshedAddress(listaAux));
     }
   } catch (error) {
+    console.log('workerRefreshAddressesList', error);
     yield put(setError('DEFAULT'));
     yield put(setIsRefreshing(false));
-    console.log('workerRefreshAddressesList', error);
   }
 }
 
