@@ -3,8 +3,6 @@
 Aplicacão react-native com finalidade de testar meus conhecimentos;
 
 ### Features
-[x] = done
-
 - [x] Permitir cadastrar vários endereços/cidades através do CEP
 - [x] Permitir excluir cidades cadastradas
 - [x] Mostrar horário da última consulta das informações
