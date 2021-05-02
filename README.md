@@ -12,7 +12,7 @@ Aplicacão react-native com finalidade de testar meus conhecimentos;
 - [x] Tratar erros de atualização, cadastro, exclusão, cep inexistente.
 
 ### Pré-requisitos
-- React-native totalmente configurado ( O guia de instalacão oficial está em: https://reactnative.dev/ )
+- React-native totalmente configurado ( O guia de instalação oficial está em: https://reactnative.dev/ )
 - Um emulador ou celular
 - npm ou yarn ( preferencia yarn )
 
@@ -24,6 +24,9 @@ Aplicacão react-native com finalidade de testar meus conhecimentos;
 - Execute os comandos:
   $yarn install
   $yarn android
+  
+- Para iniciar o aplicativo executeÇ
+  $yarn start
   
 ### Obs
 Caso as requests falhem é necessário verificar o arquivo what-weather/src/apis/cidadesApi.js e atualizar a apiKey para uma key valida;
