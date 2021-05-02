@@ -1,13 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 const manageAddressReducer = createSlice({
   name: 'manageAddressReducer',
 
-  initialState: { addressesList: [] },
+  initialState: {
+    addressesList: [],
+    isRefreshing: false,
+    ultimasConsultas: [],
+  },
   reducers: {
     pushAddress(state, { payload }) {
-      state.addressesList.push(payload);
+      state.addressesList.unshift(payload);
     },
     removeAddress(state, { payload }) {
       const deleteIndex = state.addressesList.findIndex(
@@ -24,9 +28,43 @@ const manageAddressReducer = createSlice({
       console.log(cloneArray);
       state.addressesList = cloneArray;
     },
+    refreshAddress(state, { payload }) {
+      state.isRefreshing = false;
+    },
+    setIsRefreshing(state, { payload }) {
+      state.isRefreshing = payload;
+    },
+    setRefreshedAddress(state, { payload }) {
+      let toReWriteIndex;
+      payload.length > 1
+        ? payload.forEach((cidade) => {
+            console.log(cidade);
+            toReWriteIndex = state.addressesList.findIndex(
+              (item) => item.ibge == cidade.ibge
+            );
+            state.addressesList[toReWriteIndex] = cidade;
+          })
+        : (state.addressesList[0] = payload);
+      // state.addressesList[0] = payload;
+      state.isRefreshing = false;
+    },
+    clearUltimasConsultas(state) {
+      state.ultimasConsultas = [];
+    },
   },
 });
 
-export const { pushAddress, removeAddress } = manageAddressReducer.actions;
+export const refreshAddressesList = createAction(
+  'manageAddressReducer/refreshAddressesList'
+);
+
+export const {
+  pushAddress,
+  removeAddress,
+  refreshAddress,
+  setIsRefreshing,
+  setRefreshedAddress,
+  clearUltimasConsultas,
+} = manageAddressReducer.actions;
 
 export default manageAddressReducer.reducer;

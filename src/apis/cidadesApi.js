@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiKey = '5471c80a';
+const apiKey = '6d252d20';
 
 export async function CONSULTA_CEP({ cep }) {
   return await axios
@@ -13,13 +13,15 @@ export async function CONSULTA_CEP({ cep }) {
 }
 
 export async function CONSULTA_TEMPO({ cidade, uf }) {
+  console.log(cidade, uf);
   return await axios
     .get(
       `https://api.hgbrasil.com/weather?key=${apiKey}&city_name=${cidade},${uf}`
     )
     .then((result) => {
       return result.data;
-    });
+    })
+    .catch((error) => console.log(error));
 }
 
 export async function PRIMEIRA_CONSULTA() {

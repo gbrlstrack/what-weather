@@ -19,7 +19,7 @@ const CreateAddressScreen = () => {
   const { error, loading, createAdressSuccess } = useSelector(
     (state) => state.createAddressReducerPersist.state
   );
-  console.log({ loading });
+
   useEffect(() => {
     setErrorType(error);
   }, [error]);
@@ -78,7 +78,9 @@ const CreateAddressScreen = () => {
       </View>
       <Snackbar
         wrapperStyle={{ position: 'absolute' }}
-        style={{ backgroundColor: '#6200ee' }}
+        style={{
+          backgroundColor: errorType !== 'SEM_INTERNET' ? '#6200ee' : '',
+        }}
         visible={errorType !== '' ? true : false}
         duration={3000}
         onDismiss={() => dispatch(clearError())}>
@@ -86,6 +88,8 @@ const CreateAddressScreen = () => {
           ? 'CEP invádio! Insira o CEP novamente.'
           : errorType == 'CIDADE_JA_EXISTE'
           ? 'Cidade ja cadastrada!'
+          : errorType == 'SEM_INTERNET'
+          ? 'Erro de conexão'
           : 'Erro'}
       </Snackbar>
     </>
